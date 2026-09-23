@@ -3,327 +3,642 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Bushy Tail Tech Tools - Coming Soon">
-    <title>Bushy Tail Tech Tools - Under Construction</title>
+    <meta name="description" content="Astro Squirrel by Bushy Tail Tech Tools — an astrology research application for chart calculation, configuration detection, relationship research, ephemeris searches, and structured research notes.">
+    <title>Astro Squirrel | Bushy Tail Tech Tools</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --ink: #20152f;
+            --muted: #665d72;
+            --purple: #6c4bd3;
+            --purple-dark: #4b2a8a;
+            --lavender: #eee8ff;
+            --cream: #fbf9ff;
+            --card: #ffffff;
+            --line: #ded7ef;
+            --gold: #d79b2d;
         }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--ink);
+            background: var(--cream);
+            line-height: 1.6;
+        }
+        a { color: inherit; }
+        .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(251,249,255,.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(108,75,211,.12);
+        }
+        nav {
+            min-height: 68px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            padding: 2rem 0;
+            justify-content: space-between;
+            gap: 24px;
         }
-
-        .container {
-            text-align: center;
-            padding: 2rem;
-            max-width: 800px;
-            animation: fadeIn 1s ease-in;
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            text-decoration: none;
         }
+        .brand-mark { font-size: 1.7rem; }
+        .nav-links { display: flex; gap: 22px; align-items: center; }
+        .nav-links a { text-decoration: none; font-weight: 600; color: #4e455a; }
+        .nav-links a:hover { color: var(--purple); }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .hero {
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 80% 18%, rgba(255,255,255,.20), transparent 23rem),
+                linear-gradient(135deg, #5d45c5 0%, #764ba2 58%, #4d2b76 100%);
+            color: white;
+            padding: 92px 0 82px;
         }
-
-        .logo {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            animation: bounce 2s infinite;
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.08fr .92fr;
+            gap: 58px;
+            align-items: center;
         }
-
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.14);
+            border: 1px solid rgba(255,255,255,.22);
+            font-weight: 700;
+            font-size: .88rem;
+            letter-spacing: .02em;
+            margin-bottom: 20px;
         }
-
         h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            line-height: .96;
+            letter-spacing: -.045em;
+            margin-bottom: 22px;
         }
-
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 300;
-            margin-bottom: 2rem;
-            opacity: 0.9;
+        .hero h1 span { display: block; color: #f5d879; }
+        .hero-copy {
+            font-size: 1.18rem;
+            max-width: 650px;
+            color: rgba(255,255,255,.9);
+            margin-bottom: 30px;
         }
-
-        .message {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-        }
-
-        .construction-icon {
+        .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+        .button {
             display: inline-block;
-            animation: rotate 3s linear infinite;
+            padding: 12px 20px;
+            border-radius: 9px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: transform .2s, box-shadow .2s;
+        }
+        .button:hover { transform: translateY(-2px); }
+        .button.primary {
+            background: white;
+            color: var(--purple-dark);
+            box-shadow: 0 8px 30px rgba(25,12,49,.22);
+        }
+        .button.secondary {
+            color: white;
+            border: 1px solid rgba(255,255,255,.42);
+            background: rgba(255,255,255,.08);
         }
 
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
+        .chart-card {
+            position: relative;
+            background: rgba(255,255,255,.95);
+            color: var(--ink);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 28px 70px rgba(28,12,56,.34);
+            transform: rotate(1.3deg);
         }
+        .chart-card::before {
+            content: "ASTRO SQUIRREL";
+            position: absolute;
+            top: 18px;
+            left: 24px;
+            font-size: .72rem;
+            font-weight: 900;
+            letter-spacing: .12em;
+            color: var(--purple);
+        }
+        .wheel {
+            width: min(100%, 430px);
+            aspect-ratio: 1;
+            margin: 20px auto 4px;
+            border: 2px solid #4e3c71;
+            border-radius: 50%;
+            position: relative;
+            background:
+                repeating-conic-gradient(from -90deg, rgba(108,75,211,.11) 0deg 1deg, transparent 1deg 30deg),
+                radial-gradient(circle, white 0 36%, transparent 36.4%),
+                radial-gradient(circle, transparent 0 57%, #6c4bd3 57.4% 57.9%, transparent 58.3%),
+                radial-gradient(circle, #faf8ff 0 74%, #e8e0fb 74.4% 75%, #fff 75.4%);
+        }
+        .wheel::before, .wheel::after {
+            content: "";
+            position: absolute;
+            background: #8c7aae;
+            opacity: .7;
+            left: 5%;
+            right: 5%;
+            height: 1px;
+            top: 50%;
+        }
+        .wheel::after {
+            top: 5%;
+            bottom: 5%;
+            width: 1px;
+            height: auto;
+            left: 50%;
+        }
+        .zodiac {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            font-size: 1.35rem;
+            color: var(--purple-dark);
+        }
+        .zodiac span { position: absolute; }
+        .z1{transform:translate(0,-174px)} .z2{transform:translate(88px,-150px)}
+        .z3{transform:translate(150px,-88px)} .z4{transform:translate(174px,0)}
+        .z5{transform:translate(150px,88px)} .z6{transform:translate(88px,150px)}
+        .z7{transform:translate(0,174px)} .z8{transform:translate(-88px,150px)}
+        .z9{transform:translate(-150px,88px)} .z10{transform:translate(-174px,0)}
+        .z11{transform:translate(-150px,-88px)} .z12{transform:translate(-88px,-150px)}
+        .planet { position:absolute; font-size:1.45rem; font-weight:700; color:#33204f; }
+        .p1{left:27%;top:24%}.p2{right:25%;top:30%}.p3{right:22%;bottom:33%}
+        .p4{left:38%;bottom:22%}.p5{left:21%;bottom:38%}.p6{left:45%;top:31%}
+        .aspect { position:absolute; left:50%; top:50%; width:34%; height:1px; transform-origin:left center; background:#8c75c6; opacity:.55; }
+        .a1{transform:rotate(28deg)}.a2{transform:rotate(145deg)}.a3{transform:rotate(235deg)}
+        .chart-note { text-align: center; color: var(--muted); font-size: .86rem; }
 
+        section { padding: 82px 0; }
+        .section-head { max-width: 760px; margin-bottom: 36px; }
+        .section-head .kicker {
+            color: var(--purple);
+            text-transform: uppercase;
+            font-size: .78rem;
+            font-weight: 900;
+            letter-spacing: .13em;
+            margin-bottom: 7px;
+        }
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.08;
+            letter-spacing: -.025em;
+            margin-bottom: 13px;
+        }
+        .section-head p { color: var(--muted); font-size: 1.06rem; }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+        .feature {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(50,31,79,.05);
+        }
+        .feature-icon { font-size: 1.65rem; margin-bottom: 10px; }
+        .feature h3 { font-size: 1.12rem; margin-bottom: 7px; }
+        .feature p { color: var(--muted); font-size: .95rem; }
+
+        .research { background: #f1ecff; }
+        .research-grid {
+            display: grid;
+            grid-template-columns: .92fr 1.08fr;
+            gap: 46px;
+            align-items: center;
+        }
+        .pineapple {
+            background: var(--ink);
+            color: white;
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 20px 50px rgba(35,20,54,.18);
+        }
+        .pineapple .big { font-size: 3rem; }
+        .pineapple h3 { font-size: 1.55rem; margin: 4px 0 10px; }
+        .pineapple p { color: #ddd5e8; }
+        .quote {
+            margin-top: 18px;
+            border-left: 3px solid #f1c95d;
+            padding-left: 14px;
+            font-weight: 800;
+            color: #f6dc8a;
+        }
+        .check-list { display: grid; gap: 13px; margin-top: 23px; }
+        .check { display: flex; gap: 12px; align-items: flex-start; }
+        .check b { color: var(--purple-dark); }
+
+        .status {
+            background: white;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 28px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 18px;
+            align-items: start;
+        }
+        .status-badge {
+            background: #fff1c9;
+            color: #74500b;
+            border: 1px solid #efd58a;
+            padding: 8px 11px;
+            border-radius: 999px;
+            font-size: .78rem;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+        .status p { color: var(--muted); }
+
+        .contact-section {
+            background: linear-gradient(135deg, #2b193e, #533178);
+            color: white;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: .9fr 1.1fr;
+            gap: 52px;
+            align-items: start;
+        }
+        .contact-grid p { color: #e0d7e9; }
         .contact-form {
-            margin-top: 2rem;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
+            background: rgba(255,255,255,.09);
+            border: 1px solid rgba(255,255,255,.14);
+            padding: 26px;
+            border-radius: 16px;
         }
-
-        .contact-form h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            font-weight: 400;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .form-group input,
-        .form-group textarea {
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-weight: 700; font-size: .9rem; margin-bottom: 6px; }
+        .form-group input, .form-group textarea {
             width: 100%;
-            padding: 0.75rem;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 5px;
-            background: rgba(255, 255, 255, 0.2);
-            color: #ffffff;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: border-color 0.3s, background 0.3s;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,.24);
+            border-radius: 8px;
+            background: rgba(255,255,255,.10);
+            color: white;
+            font: inherit;
         }
-
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: rgba(255, 255, 255, 0.6);
-            background: rgba(255, 255, 255, 0.25);
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
+        .form-group input::placeholder, .form-group textarea::placeholder { color: #cfc3d9; }
+        .form-group textarea { min-height: 120px; resize: vertical; }
         .submit-btn {
-            background: rgba(255, 255, 255, 0.3);
-            color: #ffffff;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            padding: 0.75rem 2rem;
-            font-size: 1rem;
-            border-radius: 5px;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 20px;
+            background: white;
+            color: var(--purple-dark);
+            font: inherit;
+            font-weight: 900;
             cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
         }
+        .submit-btn:disabled { opacity: .65; cursor: wait; }
+        .form-message { display:none; margin-top:12px; padding:10px; border-radius:8px; }
+        .form-message.error { display:block; background:rgba(190,35,35,.24); border:1px solid rgba(255,130,130,.45); }
 
-        .submit-btn:hover {
-            background: rgba(255, 255, 255, 0.4);
-            border-color: rgba(255, 255, 255, 0.8);
-            transform: translateY(-2px);
+        footer { background: #1f132c; color: #cfc5d9; padding: 25px 0; font-size: .9rem; }
+        footer .wrap { display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+
+
+        .product-shot {
+            position: relative;
+            background: #fff;
+            border-radius: 20px;
+            padding: 10px;
+            box-shadow: 0 28px 70px rgba(28,12,56,.34);
+            overflow: hidden;
         }
-
-        .submit-btn:active {
-            transform: translateY(0);
-        }
-
-        .form-message {
-            margin-top: 1rem;
-            padding: 1rem;
-            border-radius: 5px;
-            display: none;
-        }
-
-        .form-message.success {
-            background: rgba(76, 175, 80, 0.3);
-            border: 1px solid rgba(76, 175, 80, 0.6);
-        }
-
-        .form-message.error {
-            background: rgba(244, 67, 54, 0.3);
-            border: 1px solid rgba(244, 67, 54, 0.6);
-        }
-
-        .waves {
-            position: fixed;
-            bottom: 0;
-            left: 0;
+        .hero-shot { transform: rotate(1deg); }
+        .product-shot img {
+            display: block;
             width: 100%;
-            height: 100px;
-            opacity: 0.3;
+            height: auto;
+            border-radius: 12px;
+        }
+        .shot-label {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 2;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(32,21,47,.88);
+            color: white;
+            font-size: .72rem;
+            font-weight: 800;
+            letter-spacing: .02em;
+        }
+        .inside { background: #fff; }
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0,1fr));
+            gap: 22px;
+        }
+        .showcase-card {
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: var(--card);
+            overflow: hidden;
+            box-shadow: 0 12px 34px rgba(50,31,79,.07);
+        }
+        .showcase-card img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            object-position: top left;
+            display: block;
+            border-bottom: 1px solid var(--line);
+        }
+        .showcase-copy { padding: 20px 21px 22px; }
+        .showcase-copy h3 { margin-bottom: 7px; font-size: 1.12rem; }
+        .showcase-copy p { color: var(--muted); font-size: .94rem; }
+        .teaser-note {
+            margin-top: 24px;
+            padding: 16px 18px;
+            border-radius: 12px;
+            background: var(--lavender);
+            color: #4b3d61;
+            font-size: .94rem;
         }
 
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            h2 {
-                font-size: 1.2rem;
-            }
-
-            .message {
-                font-size: 1rem;
-                padding: 1.5rem;
-            }
-
-            .logo {
-                font-size: 3rem;
-            }
-
-            .contact-form {
-                padding: 1.5rem;
-            }
-
-            .contact-form h3 {
-                font-size: 1.3rem;
-            }
-
-            .form-group input,
-            .form-group textarea {
-                font-size: 0.9rem;
-            }
+        @media (max-width: 860px) {
+            .hero-grid, .research-grid, .contact-grid { grid-template-columns: 1fr; }
+            .hero { padding-top: 68px; }
+            .chart-card { max-width: 520px; margin: 0 auto; }
+            .feature-grid { grid-template-columns: repeat(2, 1fr); }
+            .showcase-grid { grid-template-columns: 1fr; }
+            .nav-links a:not(.button) { display:none; }
+        }
+        @media (max-width: 570px) {
+            .wrap { width: min(100% - 28px, 1120px); }
+            .feature-grid { grid-template-columns: 1fr; }
+            section { padding: 62px 0; }
+            .wheel { transform: scale(.9); margin-left:-5%; width:110%; }
+            .status { grid-template-columns:1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">🐿️</div>
-        <h1>Bushy Tail Tech Tools</h1>
-        <h2>Something Amazing is Coming Soon</h2>
-
-        <div class="message">
-            <p class="construction-icon">⚙️</p>
-            <p><strong>We're currently building something special!</strong></p>
-            <p>Our website is under construction and will be launching soon.</p>
-            <p>Stay tuned for innovative tech tools and solutions.</p>
+<header>
+    <nav class="wrap">
+        <a class="brand" href="#top"><span class="brand-mark">🐿️</span><span>Bushy Tail Tech Tools</span></a>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#research">Research</a>
+            <a href="#inside">Inside the App</a>
+            <a href="#contact">Contact</a>
         </div>
+    </nav>
+</header>
 
-        <div class="contact-form">
-            <h3>Get in Touch</h3>
-            <form action="https://formspree.io/f/xpwowddq" method="POST" id="contact-form">
-
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required placeholder="Your name">
+<main id="top">
+    <section class="hero">
+        <div class="wrap hero-grid">
+            <div>
+                <div class="eyebrow">🐿️ In development by Bushy Tail Tech Tools</div>
+                <h1>Meet <span>Astro Squirrel.</span></h1>
+                <p class="hero-copy">
+                    Astrology software for people who want to move beyond generating charts and start investigating patterns, transits, relationships, timing, and evidence.
+                </p>
+                <div class="actions">
+                    <a class="button primary" href="#features">Explore Astro Squirrel</a>
+                    <a class="button secondary" href="#contact">Ask About the Project</a>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="your@email.com">
-                </div>
-
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" required placeholder="How can we help you?"></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn">Send Message</button>
-
-                <div class="form-message" id="form-message"></div>
-            </form>
+            <div class="product-shot hero-shot">
+                <div class="shot-label">Actual Astro Squirrel interface</div>
+                <img src="assets/astro-squirrel-transit.jpg" alt="Astro Squirrel transit chart interface using demo data for Suzie Squirrel">
+            </div>
         </div>
+    </section>
+
+    <section id="features">
+        <div class="wrap">
+            <div class="section-head">
+                <div class="kicker">What it does</div>
+                <h2>Charts are the starting point. Research is the point.</h2>
+                <p>Astro Squirrel combines familiar chart work with tools for testing patterns, comparing charts, and keeping the results organized.</p>
+            </div>
+            <div class="feature-grid">
+                <article class="feature">
+                    <div class="feature-icon">◉</div>
+                    <h3>Core Chart Types</h3>
+                    <p>Natal, Solar Return, Transit, Synastry, and Composite chart workflows with a custom SVG chart renderer.</p>
+                </article>
+                <article class="feature">
+                    <div class="feature-icon">△</div>
+                    <h3>Configuration Detection</h3>
+                    <p>Deterministic detection for Yods, T-Squares, Grand Crosses, Grand Trines, Kites, Mystic Rectangles, and Stelliums.</p>
+                </article>
+                <article class="feature">
+                    <div class="feature-icon">☊</div>
+                    <h3>Node Research</h3>
+                    <p>Mean and True Node display plus research rules such as degree-of-the-node activation scanning.</p>
+                </article>
+                <article class="feature">
+                    <div class="feature-icon">⇄</div>
+                    <h3>Relationship Research</h3>
+                    <p>Synastry, shared transits, composite research, event research, Draconic work, and midpoint analysis.</p>
+                </article>
+                <article class="feature">
+                    <div class="feature-icon">⌕</div>
+                    <h3>Ephemeris Search</h3>
+                    <p>Search ephemeris positions directly when the research question starts with a degree, body, or date rather than a chart.</p>
+                </article>
+                <article class="feature">
+                    <div class="feature-icon">▣</div>
+                    <h3>Birth Data Library</h3>
+                    <p>Save and reuse birth profiles across research workflows instead of repeatedly entering the same chart data.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="research" id="research">
+        <div class="wrap research-grid">
+            <div class="pineapple">
+                <div class="big">🍍</div>
+                <h3>Pineapple Alerts</h3>
+                <p>
+                    Astro Squirrel can flag an unusually interesting configuration without pretending that a pattern proves a specific life outcome.
+                </p>
+                <div class="quote">🐿️ “Bruh. Look at THIS shit.” 🍍</div>
+            </div>
+            <div>
+                <div class="section-head">
+                    <div class="kicker">Built for investigation</div>
+                    <h2>Keep the calculation and the observation together.</h2>
+                    <p>The Research Journal is designed to preserve what was calculated, what was observed, and what happened later.</p>
+                </div>
+                <div class="check-list">
+                    <div class="check"><span>✓</span><div><b>Frozen research state.</b> Preserve the chart/request used for a research entry rather than silently changing history when software evolves.</div></div>
+                    <div class="check"><span>✓</span><div><b>Append-only notes.</b> Record before-event thoughts, observations, aftermath, and general notes as the research develops.</div></div>
+                    <div class="check"><span>✓</span><div><b>Outcome tracking.</b> Classify observations as Strong hit, Possible hit, Unclear, or No apparent manifestation.</div></div>
+                    <div class="check"><span>✓</span><div><b>Regenerate later.</b> Saved requests can be loaded and recalculated for continued investigation.</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="inside" id="inside">
+        <div class="wrap">
+            <div class="section-head">
+                <div class="kicker">Inside Astro Squirrel</div>
+                <h2>Real tools. Real calculated output.</h2>
+                <p>A glimpse inside the working application and some of the tools Astro Squirrel brings to chart research.</p>
+            </div>
+
+            <div class="showcase-grid">
+                <article class="showcase-card">
+                    <img src="assets/astro-squirrel-research-teaser.jpg" alt="Astro Squirrel research screen showing selected transit research findings">
+                    <div class="showcase-copy">
+                        <h3>Pattern research</h3>
+                        <p>Surface noteworthy chart structures and cross-chart activations, then inspect the supporting evidence inside the application.</p>
+                    </div>
+                </article>
+
+                <article class="showcase-card">
+                    <img src="assets/astro-squirrel-ephemeris.jpg" alt="Astro Squirrel ephemeris position search showing exact Saturn crossings">
+                    <div class="showcase-copy">
+                        <h3>Ephemeris search</h3>
+                        <p>Ask a degree-and-date question directly. Exact crossings can be located across long date ranges, including retrograde passes.</p>
+                    </div>
+                </article>
+
+                <article class="showcase-card">
+                    <img src="assets/astro-squirrel-relationship.jpg" alt="Astro Squirrel relationship research interface using Suzie Squirrel and Matt Bushytail demo data">
+                    <div class="showcase-copy">
+                        <h3>Relationship research</h3>
+                        <p>Explore synastry and relationship structures while keeping birth-time reliability and raw geometry visible.</p>
+                    </div>
+                </article>
+
+                <article class="showcase-card">
+                    <img src="assets/astro-squirrel-journal.jpg" alt="Astro Squirrel Research Journal interface using fictional demo names">
+                    <div class="showcase-copy">
+                        <h3>Research Journal</h3>
+                        <p>Preserve hypotheses, observations, notes and outcomes so chart research can be revisited instead of disappearing into a one-time reading.</p>
+                    </div>
+                </article>
+            </div>
+
+            <div class="teaser-note">
+                🍍 <strong>And yes, there’s more under the hood.</strong> Astro Squirrel is actively growing as we continue building and testing new research tools.
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="wrap">
+            <div class="section-head">
+                <div class="kicker">Project status</div>
+                <h2>Actively being built and tested.</h2>
+            </div>
+            <div class="status">
+                <div class="status-badge">IN DEVELOPMENT</div>
+                <div>
+                    <h3>Astro Squirrel is not a public download yet.</h3>
+                    <p>
+                        The application is currently a local desktop research tool. Core charting and research features are working,
+                        while the custom renderer, composite/transit workflow, exports, and additional quality-control work continue.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="wrap contact-grid">
+            <div>
+                <div class="section-head">
+                    <div class="kicker" style="color:#f0d77c">Interested?</div>
+                    <h2>Ask about Astro Squirrel.</h2>
+                    <p>If you want to know more about the project, its research tools, or future availability, send a message.</p>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form action="https://formspree.io/f/xpwowddq" method="POST" id="contact-form">
+                    <input type="hidden" name="subject" value="Astro Squirrel website inquiry">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required placeholder="What would you like to know about Astro Squirrel?"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                    <div class="form-message" id="form-message"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="wrap">
+        <span>🐿️ Bushy Tail Tech Tools</span>
+        <span>Astro Squirrel — astrology research software in development</span>
+        <span>© 2026 Bushy Tail Tech Tools. All rights reserved.</span>
     </div>
+</footer>
 
-    <svg class="waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path fill="#ffffff" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,144C960,149,1056,139,1152,128C1248,117,1344,107,1392,101.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-    </svg>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const contactForm = document.getElementById('contact-form');
+    const formMessage = document.getElementById('form-message');
+    if (!contactForm) return;
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const contactForm = document.getElementById('contact-form');
-            const formMessage = document.getElementById('form-message');
+    contactForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const submitButton = contactForm.querySelector('.submit-btn');
+        const formData = new FormData(contactForm);
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
 
-            if (contactForm) {
-                contactForm.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-
-                    const formData = new FormData(contactForm);
-                    const submitButton = contactForm.querySelector('.submit-btn');
-
-                    // Disable button and show loading state
-                    submitButton.disabled = true;
-                    submitButton.textContent = 'Sending...';
-
-                    try {
-                        // Submit to Formspree
-                        const response = await fetch(contactForm.action, {
-                            method: 'POST',
-                            body: formData,
-                            headers: {
-                                'Accept': 'application/json'
-                            }
-                        });
-
-                        if (response.ok) {
-                            // Success - redirect to thank-you page
-                            window.location.href = 'thank-you.html';
-                        } else {
-                            // Error handling
-                            formMessage.textContent = 'Oops! There was a problem submitting your form. Please try again.';
-                            formMessage.className = 'form-message error';
-                            formMessage.style.display = 'block';
-                            submitButton.disabled = false;
-                            submitButton.textContent = 'Send Message';
-                        }
-                    } catch (error) {
-                        // Network error
-                        formMessage.textContent = 'Oops! There was a problem submitting your form. Please try again.';
-                        formMessage.className = 'form-message error';
-                        formMessage.style.display = 'block';
-                        submitButton.disabled = false;
-                        submitButton.textContent = 'Send Message';
-                    }
-                });
+        try {
+            const response = await fetch(contactForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+            if (response.ok) {
+                window.location.href = 'thank-you.html';
+                return;
             }
-        });
-    </script>
+            throw new Error('Form submission failed');
+        } catch (error) {
+            formMessage.textContent = 'There was a problem submitting your message. Please try again.';
+            formMessage.className = 'form-message error';
+            submitButton.disabled = false;
+            submitButton.textContent = 'Send Message';
+        }
+    });
+});
+</script>
 </body>
 </html>
