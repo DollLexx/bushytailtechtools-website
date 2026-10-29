@@ -427,12 +427,57 @@
         .book-page-top a { color:var(--purple-dark); font-weight:700; text-decoration:none; }
         .book-page-top a:hover { text-decoration:underline; }
         @media (max-width:860px) { .nav-links a:not(.button) { display:inline; } }
-    </style>
+    
+        /* Shared product navigation: click/tap dropdowns, with keyboard support. */
+        .nav-links { display:flex; align-items:center; gap:18px; }
+        .nav-dropdown { position:relative; }
+        .nav-dropdown summary { list-style:none; cursor:pointer; font-weight:700; padding:12px 6px; white-space:nowrap; }
+        .nav-dropdown summary::-webkit-details-marker { display:none; }
+        .nav-dropdown summary span { font-size:.75em; margin-left:5px; }
+        .nav-dropdown summary:focus-visible, .nav-submenu a:focus-visible { outline:2px solid var(--purple); outline-offset:3px; }
+        .nav-submenu { position:absolute; top:100%; left:0; z-index:30; min-width:210px; padding:9px; background:#fff; border:1px solid #ddd2f3; border-radius:12px; box-shadow:0 15px 36px rgba(45,25,83,.18); }
+        .nav-submenu a { display:block; padding:11px 12px; border-radius:7px; color:var(--purple-dark); text-decoration:none; white-space:nowrap; }
+        .nav-submenu a:hover { background:#f2ecff; }
+        .nav-contact { white-space:nowrap; }
+        @media (max-width:860px) {
+            .nav-links { display:flex; gap:9px; flex-wrap:wrap; justify-content:flex-end; }
+            .nav-links a:not(.button) { display:inline; }
+            .nav-dropdown summary { padding:9px 3px; font-size:.88rem; }
+            .nav-contact { font-size:.88rem; }
+            .nav-submenu { left:auto; right:0; }
+        }
+        @media (max-width:570px) {
+            nav.wrap { flex-wrap:wrap; justify-content:center; }
+            .nav-links { width:100%; justify-content:center; }
+            .nav-submenu { left:0; right:auto; min-width:175px; }
+            .nav-dropdown:nth-child(2) .nav-submenu { left:auto; right:0; }
+        }
+</style>
 </head>
 <body>
 <header><nav class="wrap">
     <a class="brand" href="index.html"><span class="brand-mark">🐿️</span><span>Bushy Tail Tech Tools</span></a>
-    <div class="nav-links"><a href="index.html">Astro Squirrel</a><a href="book-squirrel.html" aria-current="page">Book Squirrel</a><a href="#contact">Contact</a></div>
+    <div class="nav-links" aria-label="Site navigation">
+            <details class="nav-dropdown">
+                <summary>Astro Squirrel <span aria-hidden="true">▾</span></summary>
+                <div class="nav-submenu">
+                    <a href="index.html#top">Overview</a>
+                    <a href="index.html#features">Features</a>
+                    <a href="index.html#research">Research</a>
+                    <a href="index.html#inside">Inside the App</a>
+                    <a href="index.html#status">Project Status</a>
+                </div>
+            </details>
+            <details class="nav-dropdown">
+                <summary>Book Squirrel <span aria-hidden="true">▾</span></summary>
+                <div class="nav-submenu">
+                    <a href="#book-squirrel">Overview &amp; Features</a>
+                    <a href="#writing-workspace">Writing Workspace</a>
+                    <a href="#book-status">Project Status</a>
+                </div>
+            </details>
+            <a class="nav-contact" href="#contact">Contact</a>
+        </div>
 </nav></header>
 <main>
     <div class="book-page-top"><div class="wrap"><a href="index.html">← Back to Astro Squirrel</a></div></div>
@@ -454,7 +499,7 @@
                 <a class="button book-squirrel-button" href="#contact">Ask About Book Squirrel</a>
                 <p class="book-squirrel-note">Currently a locally run project, not a public download. Cover design is planned.</p>
             </div>
-            <div class="book-squirrel-art" aria-label="Illustration of a book-writing workspace">
+            <div class="book-squirrel-art" id="writing-workspace" aria-label="Illustration of a book-writing workspace">
                 <div class="book-squirrel-art-header">🐿️ BOOK SQUIRREL <span>WRITING WORKSPACE</span></div>
                 <div class="book-squirrel-art-body">
                     <div class="book-squirrel-art-nav">📚 My Books<br>💡 Idea Vault<br>✍️ Write<br>📖 Preview</div>
@@ -466,6 +511,7 @@
     </section>
 
 
+    <section id="book-status" class="book-status-section"><div class="wrap"><div class="section-head"><div class="kicker">Project status</div><h2>Book Squirrel is in development.</h2><p>Book Squirrel is currently a locally run writing application, not a public download. Cover design is planned for a future update.</p></div></div></section>
     <section class="contact-section" id="contact">
         <div class="wrap contact-grid">
             <div>
