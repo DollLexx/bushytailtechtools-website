@@ -380,7 +380,7 @@
             font-size: .94rem;
         }
 
-        @media (max-width: 860px) {
+        .book-squirrel-teaser { background:linear-gradient(135deg,#f5efff,#eae0ff); }\n        .book-squirrel-button { background:var(--purple-dark); color:white; }\n        @media (max-width: 860px) {
             .hero-grid, .research-grid, .contact-grid { grid-template-columns: 1fr; }
             .hero { padding-top: 68px; }
             .chart-card { max-width: 520px; margin: 0 auto; }
@@ -395,17 +395,57 @@
             .wheel { transform: scale(.9); margin-left:-5%; width:110%; }
             .status { grid-template-columns:1fr; }
         }
-    </style>
+    
+        /* Shared product navigation: click/tap dropdowns, with keyboard support. */
+        .nav-links { display:flex; align-items:center; gap:18px; }
+        .nav-dropdown { position:relative; }
+        .nav-dropdown summary { list-style:none; cursor:pointer; font-weight:700; padding:12px 6px; white-space:nowrap; }
+        .nav-dropdown summary::-webkit-details-marker { display:none; }
+        .nav-dropdown summary span { font-size:.75em; margin-left:5px; }
+        .nav-dropdown summary:focus-visible, .nav-submenu a:focus-visible { outline:2px solid var(--purple); outline-offset:3px; }
+        .nav-submenu { position:absolute; top:100%; left:0; z-index:30; min-width:210px; padding:9px; background:#fff; border:1px solid #ddd2f3; border-radius:12px; box-shadow:0 15px 36px rgba(45,25,83,.18); }
+        .nav-submenu a { display:block; padding:11px 12px; border-radius:7px; color:var(--purple-dark); text-decoration:none; white-space:nowrap; }
+        .nav-submenu a:hover { background:#f2ecff; }
+        .nav-contact { white-space:nowrap; }
+        @media (max-width:860px) {
+            .nav-links { display:flex; gap:9px; flex-wrap:wrap; justify-content:flex-end; }
+            .nav-links a:not(.button) { display:inline; }
+            .nav-dropdown summary { padding:9px 3px; font-size:.88rem; }
+            .nav-contact { font-size:.88rem; }
+            .nav-submenu { left:auto; right:0; }
+        }
+        @media (max-width:570px) {
+            nav.wrap { flex-wrap:wrap; justify-content:center; }
+            .nav-links { width:100%; justify-content:center; }
+            .nav-submenu { left:0; right:auto; min-width:175px; }
+            .nav-dropdown:nth-child(2) .nav-submenu { left:auto; right:0; }
+        }
+</style>
 </head>
 <body>
 <header>
     <nav class="wrap">
         <a class="brand" href="#top"><span class="brand-mark">🐿️</span><span>Bushy Tail Tech Tools</span></a>
-        <div class="nav-links">
-            <a href="#features">Features</a>
-            <a href="#research">Research</a>
-            <a href="#inside">Inside the App</a>
-            <a href="#contact">Contact</a>
+        <div class="nav-links" aria-label="Site navigation">
+            <details class="nav-dropdown">
+                <summary>Astro Squirrel <span aria-hidden="true">▾</span></summary>
+                <div class="nav-submenu">
+                    <a href="#top">Overview</a>
+                    <a href="#features">Features</a>
+                    <a href="#research">Research</a>
+                    <a href="#inside">Inside the App</a>
+                    <a href="#status">Project Status</a>
+                </div>
+            </details>
+            <details class="nav-dropdown">
+                <summary>Book Squirrel <span aria-hidden="true">▾</span></summary>
+                <div class="nav-submenu">
+                    <a href="book-squirrel.html#book-squirrel">Overview &amp; Features</a>
+                    <a href="book-squirrel.html#writing-workspace">Writing Workspace</a>
+                    <a href="book-squirrel.html#book-status">Project Status</a>
+                </div>
+            </details>
+            <a class="nav-contact" href="#contact">Contact</a>
         </div>
     </nav>
 </header>
@@ -551,7 +591,7 @@
     <section>
         <div class="wrap">
             <div class="section-head">
-                <div class="kicker">Project status</div>
+                <div class="kicker" id="status">Project status</div>
                 <h2>Actively being built and tested.</h2>
             </div>
             <div class="status">
@@ -637,6 +677,32 @@ document.addEventListener('DOMContentLoaded', function () {
             submitButton.disabled = false;
             submitButton.textContent = 'Send Message';
         }
+    });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const dropdowns = Array.from(document.querySelectorAll('.nav-dropdown'));
+    dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('mouseenter', () => {
+            dropdowns.forEach(other => { if (other !== dropdown) other.open = false; });
+            dropdown.open = true;
+        });
+        dropdown.addEventListener('mouseleave', () => {
+            dropdown.open = false;
+        });
+        dropdown.addEventListener('toggle', () => {
+            if (dropdown.open) dropdowns.forEach(other => { if (other !== dropdown) other.open = false; });
+        });
+    });
+    document.addEventListener('click', event => {
+        if (!event.target.closest('.nav-dropdown')) dropdowns.forEach(dropdown => { dropdown.open = false; });
+    });
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') dropdowns.forEach(dropdown => { dropdown.open = false; });
+    });
+    document.querySelectorAll('.nav-submenu a').forEach(link => {
+        link.addEventListener('click', () => dropdowns.forEach(dropdown => { dropdown.open = false; }));
     });
 });
 </script>
