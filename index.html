@@ -380,30 +380,7 @@
             font-size: .94rem;
         }
 
-        .book-squirrel-section { background: linear-gradient(150deg, #f9f4ff, #eee8ff); }
-        .book-squirrel-grid { display:grid; grid-template-columns: 1.1fr .9fr; gap: 42px; align-items:center; }
-        .book-squirrel-intro { color:var(--muted); margin-bottom:22px; font-size:1.03rem; }
-        .book-squirrel-features { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-bottom:24px; }
-        .book-squirrel-features > div { padding:16px; background:#fff; border:1px solid var(--line); border-radius:13px; }
-        .book-squirrel-features strong { display:block; margin-bottom:5px; }
-        .book-squirrel-features span { display:block; color:var(--muted); font-size:.9rem; }
-        .book-squirrel-button { display:inline-block; background:var(--purple-dark); color:#fff; }
-        .book-squirrel-note { font-size:.87rem; color:var(--muted); margin-top:14px; }
-        .book-squirrel-art { border-radius:20px; background:#fff; box-shadow:0 22px 60px rgba(42,23,80,.16); overflow:hidden; border:1px solid var(--line); transform:rotate(1deg); }
-        .book-squirrel-art-header { background:#3a275c; color:white; padding:17px 19px; font-weight:800; letter-spacing:.04em; display:flex; justify-content:space-between; gap:12px; font-size:.88rem; }
-        .book-squirrel-art-header span { color:#ddc9fa; font-size:.67rem; align-self:center; }
-        .book-squirrel-art-body { display:grid; grid-template-columns: 120px 1fr; min-height:285px; }
-        .book-squirrel-art-nav { background:#eee7fb; color:#49336b; padding:19px 13px; line-height:2.8; font-size:.83rem; font-weight:700; }
-        .book-squirrel-art-page { padding:29px 22px; }
-        .book-squirrel-art-label { font-size:.72rem; color:var(--purple); font-weight:900; letter-spacing:.12em; }
-        .book-squirrel-art-page h3 { font-family:Georgia,serif; font-size:1.45rem; margin:12px 0 23px; }
-        .book-squirrel-line { height:9px; background:#e9e4f1; border-radius:9px; margin-bottom:12px; }
-        .book-squirrel-line.short { width:65%; }
-        .book-squirrel-art-page p { font-family:Georgia,serif; color:var(--muted); font-size:.86rem; margin-top:22px; }
-        .book-squirrel-art-footer { padding:10px 18px; font-size:.73rem; color:var(--muted); border-top:1px solid var(--line); }
-        @media (max-width:860px) { .book-squirrel-grid { grid-template-columns:1fr; } .book-squirrel-art { max-width:560px; transform:none; } }
-        @media (max-width:570px) { .book-squirrel-features { grid-template-columns:1fr; } .book-squirrel-art-body { grid-template-columns:95px 1fr; } .book-squirrel-art-nav { font-size:.72rem; padding:14px 8px; } }
-        @media (max-width: 860px) {
+        .book-squirrel-teaser { background:linear-gradient(135deg,#f5efff,#eae0ff); }\n        .book-squirrel-button { background:var(--purple-dark); color:white; }\n        @media (max-width: 860px) {
             .hero-grid, .research-grid, .contact-grid { grid-template-columns: 1fr; }
             .hero { padding-top: 68px; }
             .chart-card { max-width: 520px; margin: 0 auto; }
@@ -428,7 +405,7 @@
             <a href="#features">Features</a>
             <a href="#research">Research</a>
             <a href="#inside">Inside Astro Squirrel</a>
-            <a href="#book-squirrel">Book Squirrel</a>
+            <a href="book-squirrel.html">Book Squirrel</a>
             <a href="#contact">Contact</a>
         </div>
     </nav>
@@ -572,32 +549,14 @@
         </div>
     </section>
 
-    <section class="book-squirrel-section" id="book-squirrel">
-        <div class="wrap book-squirrel-grid">
-            <div>
-                <div class="section-head">
-                    <div class="kicker">Another tool from Bushy Tail Tech Tools</div>
-                    <h2>Meet Book Squirrel. 🐿️📖</h2>
-                    <p>A home for the stories, ideas, and chapters you want to turn into a book.</p>
-                </div>
-                <p class="book-squirrel-intro">Capture ideas as they arrive, connect them to a book, build chapters, and preview your manuscript without juggling a pile of separate documents.</p>
-                <div class="book-squirrel-features">
-                    <div><strong>💡 Idea Vault</strong><span>Collect ideas and associate them with one or more books.</span></div>
-                    <div><strong>✍️ Chapter writing</strong><span>Draft, edit, and organize chapters in a dedicated workspace.</span></div>
-                    <div><strong>📖 Preview &amp; export</strong><span>Review your manuscript and print or save it as a PDF.</span></div>
-                    <div><strong>💾 Local databases</strong><span>Keep writing in SQLite databases with manual backup and restore.</span></div>
-                </div>
-                <a class="button book-squirrel-button" href="#contact">Ask About Book Squirrel</a>
-                <p class="book-squirrel-note">Currently a locally run project, not a public download. Cover design is planned.</p>
+    <section class="book-squirrel-teaser" id="book-squirrel">
+        <div class="wrap">
+            <div class="section-head">
+                <div class="kicker">Also from Bushy Tail Tech Tools</div>
+                <h2>Meet Book Squirrel. 🐿️📖</h2>
+                <p>Capture ideas, write chapters, and build your manuscript in one organized writing workspace.</p>
             </div>
-            <div class="book-squirrel-art" aria-label="Illustration of a book-writing workspace">
-                <div class="book-squirrel-art-header">🐿️ BOOK SQUIRREL <span>WRITING WORKSPACE</span></div>
-                <div class="book-squirrel-art-body">
-                    <div class="book-squirrel-art-nav">📚 My Books<br>💡 Idea Vault<br>✍️ Write<br>📖 Preview</div>
-                    <div class="book-squirrel-art-page"><div class="book-squirrel-art-label">CHAPTER ONE</div><h3>Every story starts somewhere.</h3><div class="book-squirrel-line"></div><div class="book-squirrel-line"></div><div class="book-squirrel-line short"></div><p>Gather your thoughts. Find your words. Keep writing.</p></div>
-                </div>
-                <div class="book-squirrel-art-footer">Concept illustration · not an application screenshot</div>
-            </div>
+            <a class="button book-squirrel-button" href="book-squirrel.html">Explore Book Squirrel</a>
         </div>
     </section>
 
