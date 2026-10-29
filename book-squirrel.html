@@ -448,7 +448,19 @@
             .nav-submenu { left:0; right:auto; min-width:175px; }
             .nav-dropdown:nth-child(2) .nav-submenu { left:auto; right:0; }
         }
-</style>
+
+        /* Book Squirrel: balanced introduction and full-width product showcase. */
+        .book-squirrel-grid { grid-template-columns: minmax(0, 1fr); gap: 34px; align-items: start; }
+        .book-squirrel-grid > div:first-child { width: 100%; }
+        .book-squirrel-grid .section-head { max-width: 860px; margin-bottom: 18px; }
+        .book-squirrel-intro { max-width: 820px; }
+        .book-squirrel-features { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 22px; }
+        .book-squirrel-features > div { padding: 18px; }
+        .book-squirrel-screenshot { min-width: 0; scroll-margin-top: 100px; }
+        .book-squirrel-screenshot img { max-width: 100%; }
+        @media (max-width: 860px) { .book-squirrel-features { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+        @media (max-width: 570px) { .book-squirrel-features { grid-template-columns: 1fr; } .book-squirrel-grid { gap: 24px; } }
+    </style>
 </head>
 <body>
 <header><nav class="wrap">
