@@ -419,13 +419,9 @@
         @media (max-width:860px) { .book-squirrel-grid { grid-template-columns:1fr; } .book-squirrel-art { max-width:560px; transform:none; } }
         @media (max-width:570px) { .book-squirrel-features { grid-template-columns:1fr; } .book-squirrel-art-body { grid-template-columns:95px 1fr; } .book-squirrel-art-nav { font-size:.72rem; padding:14px 8px; } }
 
-        .book-squirrel-section { min-height:calc(100vh - 145px); }
+        .book-squirrel-section { min-height:0; padding-top:72px; padding-bottom:72px; }
         .book-squirrel-section .section-head { margin-bottom:24px; }
         .book-squirrel-art { transform:none; }
-        .book-page-top { padding:42px 0 0; background:#f9f4ff; }
-        .book-page-top .kicker { color:var(--purple); font-weight:800; letter-spacing:.12em; text-transform:uppercase; font-size:.8rem; }
-        .book-page-top a { color:var(--purple-dark); font-weight:700; text-decoration:none; }
-        .book-page-top a:hover { text-decoration:underline; }
         @media (max-width:860px) { .nav-links a:not(.button) { display:inline; } }
     
         /* Shared product navigation: click/tap dropdowns, with keyboard support. */
@@ -480,7 +476,6 @@
         </div>
 </nav></header>
 <main>
-    <div class="book-page-top"><div class="wrap"><a href="index.html">← Back to Astro Squirrel</a></div></div>
     <section class="book-squirrel-section" id="book-squirrel">
         <div class="wrap book-squirrel-grid">
             <div>
