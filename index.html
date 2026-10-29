@@ -680,5 +680,31 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const dropdowns = Array.from(document.querySelectorAll('.nav-dropdown'));
+    dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('mouseenter', () => {
+            dropdowns.forEach(other => { if (other !== dropdown) other.open = false; });
+            dropdown.open = true;
+        });
+        dropdown.addEventListener('mouseleave', () => {
+            dropdown.open = false;
+        });
+        dropdown.addEventListener('toggle', () => {
+            if (dropdown.open) dropdowns.forEach(other => { if (other !== dropdown) other.open = false; });
+        });
+    });
+    document.addEventListener('click', event => {
+        if (!event.target.closest('.nav-dropdown')) dropdowns.forEach(dropdown => { dropdown.open = false; });
+    });
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') dropdowns.forEach(dropdown => { dropdown.open = false; });
+    });
+    document.querySelectorAll('.nav-submenu a').forEach(link => {
+        link.addEventListener('click', () => dropdowns.forEach(dropdown => { dropdown.open = false; }));
+    });
+});
+</script>
 </body>
 </html>
