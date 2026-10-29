@@ -432,7 +432,7 @@
 <body>
 <header><nav class="wrap">
     <a class="brand" href="index.html"><span class="brand-mark">🐿️</span><span>Bushy Tail Tech Tools</span></a>
-    <div class="nav-links"><a href="index.html">Astro Squirrel</a><a href="book-squirrel.html" aria-current="page">Book Squirrel</a><a href="index.html#contact">Contact</a></div>
+    <div class="nav-links"><a href="index.html">Astro Squirrel</a><a href="book-squirrel.html" aria-current="page">Book Squirrel</a><a href="#contact">Contact</a></div>
 </nav></header>
 <main>
     <div class="book-page-top"><div class="wrap"><a href="index.html">← Back to Astro Squirrel</a></div></div>
@@ -451,7 +451,7 @@
                     <div><strong>📖 Preview &amp; export</strong><span>Review your manuscript and print or save it as a PDF.</span></div>
                     <div><strong>💾 Local databases</strong><span>Keep writing in SQLite databases with manual backup and restore.</span></div>
                 </div>
-                <a class="button book-squirrel-button" href="index.html#contact">Ask About Book Squirrel</a>
+                <a class="button book-squirrel-button" href="#contact">Ask About Book Squirrel</a>
                 <p class="book-squirrel-note">Currently a locally run project, not a public download. Cover design is planned.</p>
             </div>
             <div class="book-squirrel-art" aria-label="Illustration of a book-writing workspace">
@@ -466,7 +466,68 @@
     </section>
 
 
+    <section class="contact-section" id="contact">
+        <div class="wrap contact-grid">
+            <div>
+                <div class="section-head">
+                    <div class="kicker" style="color:#f0d77c">Interested?</div>
+                    <h2>Ask about Book Squirrel.</h2>
+                    <p>Have a question about Book Squirrel, its writing tools, or future availability? Send a message here.</p>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form action="https://formspree.io/f/xpwowddq" method="POST" id="contact-form">
+                    <input type="hidden" name="subject" value="Book Squirrel website inquiry">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required placeholder="What would you like to know about Book Squirrel?"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                    <div class="form-message" id="form-message"></div>
+                </form>
+            </div>
+        </div>
+    </section>
 </main>
 <footer><div class="wrap"><span>🐿️ Bushy Tail Tech Tools</span><span>Astro Squirrel &amp; Book Squirrel — tools in development</span><span>© 2026 Bushy Tail Tech Tools. All rights reserved.</span></div></footer>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const contactForm = document.getElementById('contact-form');
+    const formMessage = document.getElementById('form-message');
+    if (!contactForm) return;
+    contactForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const submitButton = contactForm.querySelector('.submit-btn');
+        const formData = new FormData(contactForm);
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
+        try {
+            const response = await fetch(contactForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+            if (response.ok) {
+                window.location.href = 'thank-you.html';
+                return;
+            }
+            throw new Error('Form submission failed');
+        } catch (error) {
+            formMessage.textContent = 'There was a problem submitting your message. Please try again.';
+            formMessage.className = 'form-message error';
+            submitButton.disabled = false;
+            submitButton.textContent = 'Send Message';
+        }
+    });
+});
+</script>
 </body>
 </html>
